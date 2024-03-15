@@ -1,7 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function  Login() {
+
+  const handleClick = async () => {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Include any form data here
+      })
+    });
+
+    if (!response.ok) {
+      // Handle error here
+      console.error('Failed to login');
+      return;
+    }
+
+    const data = await response.json();
+    // Handle response here
+    console.log(data);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -25,6 +48,14 @@ export default function Home() {
           <h1 className="text-4xl">
             Home
           </h1>
+
+          <button 
+            type="button" 
+            className="p-4 text-white bg-blue-500 rounded-lg" 
+            onClick={handleClick}
+          >
+            Submit
+          </button>
             
       </div>
 
